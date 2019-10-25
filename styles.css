@@ -19,6 +19,8 @@
 
 .btn:hover {
 	opacity: 0.9;
+	border: 1px solid #1f1f1f;
+	cursor: pointer;
 }
 
 body {
