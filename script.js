@@ -1,46 +1,73 @@
 // stores all available choices for game
 const choice = ["rock", "paper", "scissors"];
+
+let winCount = 0;
+let tieCount = 0;
+let roundCount = 0;
+
+const buttons = Array.from(document.querySelectorAll('.btn'));
+console.log(buttons);
 // randomly decides which of the available options the computer picks
 let computerPlay = () => choice[Math.floor(Math.random(2)*3)];
 // compares player choice with computer choice and returns result
 // represents one round of the game
 let playRound = (playerSelection, computerSelection) => {
-	playerSelection = playerSelection.toLowerCase();
+	//playerSelection = playerSelection.toLowerCase();
 	switch(playerSelection) {
 		case "rock":
 			if (computerSelection == "rock") {
-				return "It's a tie! Rock and Rock";
+				 console.log("It's a tie! Rock and Rock");
+				 tieCount++;
+			} else if (computerSelection == "paper") {
+				console.log("You lose! Paper beats Rock");
+			} else if (computerSelection == "scissors") {
+				console.log("You win! Rock beats Scissors");
+				winCount++;
 			}
-			else if (computerSelection == "paper") {
-				return "You lose! Paper beats Rock";
-			}
-			else {
-				return "You win! Rock beats Scissors";
-			}
+			break;
 		case "paper":
 			if (computerSelection == "paper") {
-				return "It's a tie! Paper and Paper";
+				console.log("It's a tie! Paper and Paper");
+				tieCount++;
 			}
 			else if (computerSelection == "scissors") {
-				return "You lose! Scissors beats Paper";
-			}
-			else {
-				return "You win! Paper beats Rock";
-			}
-		case "scissors":
-			if (computerSelection == "scissors") {
-				return "It's a tie! Scissors and Scissors";
+				console.log("You lose! Scissors beats Paper");
 			}
 			else if (computerSelection == "rock") {
-				return "You lose! Rock beats Scissors";
+				console.log("You win! Paper beats Rock");
+				winCount++;
 			}
-			else {
-				return "You win! Scissors beats Paper";
+			break;
+		case "scissors":
+			if (computerSelection == "scissors") {
+				console.log("It's a tie! Scissors and Scissors");
+				tieCount++;
 			}
+			else if (computerSelection == "rock") {
+				console.log("You lose! Rock beats Scissors");
+			}
+			else if (computerSelection == "paper") {
+				console.log("You win! Scissors beats Paper");
+				winCount++;
+			}
+			break;
 		default:
-			return "Error. You spelled your choice incorrectly. You lose this round."	
+			break;
+	}
+
+	roundCount++;
+
+	if(roundCount > 4) {
+		console.log("game over");
 	}
 }
+
+// handles button press events for Rock, Paper, and Scissors buttons
+buttons.forEach((button) => { 
+	button.addEventListener("click", () => {
+		playRound(button.id, computerPlay());
+	});
+});
 
 // plays a game of 5 rounds and determines winner at the end
 /*let game = () => {
