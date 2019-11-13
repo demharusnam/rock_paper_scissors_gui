@@ -1,64 +1,75 @@
 // stores all available choices for game
 const choice = ["rock", "paper", "scissors"];
-
+// tracks game scores
 let winCount = 0;
-let tieCount = 0;
+let lossCount = 0;
 let roundCount = 0;
-
+// retrieves game buttons to know which is pressed
 const buttons = Array.from(document.querySelectorAll('.btn'));
-console.log(buttons);
 // randomly decides which of the available options the computer picks
 let computerPlay = () => choice[Math.floor(Math.random(2)*3)];
 // compares player choice with computer choice and returns result
 // represents one round of the game
 let playRound = (playerSelection, computerSelection) => {
-	//playerSelection = playerSelection.toLowerCase();
+	roundCount++;
 	switch(playerSelection) {
 		case "rock":
 			if (computerSelection == "rock") {
-				 console.log("It's a tie! Rock and Rock");
-				 tieCount++;
+				 console.log("Round tie. Rock and Rock");
 			} else if (computerSelection == "paper") {
-				console.log("You lose! Paper beats Rock");
+				console.log("Round lost. Paper beats Rock");
+				lossCount++;
 			} else if (computerSelection == "scissors") {
-				console.log("You win! Rock beats Scissors");
+				console.log("Round won! Rock beats Scissors");
 				winCount++;
 			}
 			break;
 		case "paper":
 			if (computerSelection == "paper") {
-				console.log("It's a tie! Paper and Paper");
-				tieCount++;
+				console.log("Round tie. Paper and Paper");
 			}
 			else if (computerSelection == "scissors") {
-				console.log("You lose! Scissors beats Paper");
+				console.log("Round lost. Scissors beats Paper");
+				lossCount++;
 			}
 			else if (computerSelection == "rock") {
-				console.log("You win! Paper beats Rock");
+				console.log("Round won! Paper beats Rock");
 				winCount++;
 			}
 			break;
 		case "scissors":
 			if (computerSelection == "scissors") {
-				console.log("It's a tie! Scissors and Scissors");
-				tieCount++;
+				console.log("Round tie. Scissors and Scissors");
 			}
 			else if (computerSelection == "rock") {
-				console.log("You lose! Rock beats Scissors");
+				console.log("Round lost. Rock beats Scissors");
+				lossCount++;
 			}
 			else if (computerSelection == "paper") {
-				console.log("You win! Scissors beats Paper");
+				console.log("Round won! Scissors beats Paper");
 				winCount++;
 			}
 			break;
 		default:
 			break;
 	}
-
-	roundCount++;
-
-	if(roundCount > 4) {
-		console.log("game over");
+	// declares game winner after either best of 5 matches have been won
+	// or a tie has been reached. Then, the game resets.
+	if (winCount > 2) {
+		console.log("Game over. You won!");
+		winCount = 0;
+		lossCount = 0;
+		roundCount = 0;
+	} else if (lossCount > 2) {
+		console.log("Game over. You lost.");
+		winCount = 0;
+		lossCount = 0;
+		roundCount = 0;
+	} else if (winCount == lossCount && roundCount > 4) {
+		console.log("Game over. It's a tie.");
+		winCount = 0;
+		lossCount = 0;
+		roundCount = 0;
 	}
 }
 
@@ -68,39 +79,3 @@ buttons.forEach((button) => {
 		playRound(button.id, computerPlay());
 	});
 });
-
-// plays a game of 5 rounds and determines winner at the end
-/*let game = () => {
-	let winCount = 0;
-	let tieCount = 0;
-
-	for (let i = 1; i <= 5; i++) {
-		console.log(`Round ${i}:`);
-		// prompts user to choose 
-		playerSelection = window.prompt("Rock Paper Scissors");
-		// computer randomly selects choice
-		computerSelection = computerPlay();
-		// player and computer choices are compared and the round result is returned
-		result = playRound(playerSelection, computerSelection);
-
-		// increment appropriate counters if user wins or ties
-		result.includes("win") ?
-		winCount++ :
-		result.includes("tie") ?
-		tieCount++ :
-		null
-
-		// prints out round result
-		console.log(result);
-	}
-
-	// prints out player's standing after all 5 rounds have been played
-	winCount > 2 ? 
-	console.log(`GAME OVER! You won! (${winCount}/5)`) : 
-	(winCount >= Math.ceil((5 - tieCount)/2)) ? 
-	console.log(`GAME OVER! It's a tie! (${winCount}/5)`) :
-	console.log(`GAME OVER! You lost! (${winCount}/5)`);
-}
-
-// plays game
-game();*/
