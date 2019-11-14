@@ -2,6 +2,23 @@
 	margin: 0 auto;
 	width: 50%;
 	height: 75px;
+	padding-left: 11%;
+}
+
+.board {
+	margin: 0 auto;
+	color: #f2f2f2;
+	text-align: center;
+}
+
+#roundresult {
+	margin: 0 auto;
+	text-align: center;
+	padding-bottom: 15px;
+}
+
+h1 {
+	font-size: 80px;
 }
 
 ul {
@@ -44,6 +61,7 @@ li {
 
 body {
 	padding: 400px;
+	padding-top: 200px;
 	background-color: #3f3f3f;
 	font-family: sans-serif;
 }
