@@ -20,6 +20,8 @@ let computerPlay = () => choice[Math.floor(Math.random(2)*3)];
 // compares player choice with computer choice and updates result to UI
 // represents one round of the game
 let playRound = (playerSelection, computerSelection) => {
+	roundCount == 0 ? gameStatus.textContent = "Rock, Paper, Scissors" : null;
+
 	roundCount++;
 
 	switch (choiceComparison(playerSelection, computerSelection)) {
